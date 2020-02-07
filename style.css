@@ -8,14 +8,14 @@
 
 #displays {
   display: grid;
-  grid-template-columns: 400px;
+  grid-template-columns: 385px;
   grid-template-rows: 1fr auto;
   word-wrap: break-word;
   border-bottom: 10px solid black;
 }
 
 #calculation, #result {
-  padding: 0 10px;
+  padding: 0 5px;
   text-align: end;
 }
 
@@ -24,7 +24,8 @@
 }
 
 #result {
-  font-size: 60px;
+  font-size: 30px;
+  font-weight: 900;
 }
 
 #buttons {
@@ -37,11 +38,23 @@
   background-color: #000000;
 }
 
-.button, .number {
+.button, .number, .operator {
   text-align: center;
   padding-top: 35px;
   border-radius: 10px;
+  background-color: #DBDBDB;
+}
+
+.number {
   background-color: #ffffff;
+}
+
+.operator, #clear, #delete, #plusMinus {
+  font-weight: 700;
+}
+
+#clear, #delete {
+  background-color: #F1FB3C;
 }
 
 #decimal {
@@ -50,7 +63,9 @@
 }
 
 #subtract {
-  padding-top: 25px;
+  font-size: 50px;
+  font-weight: 100;
+  padding-top: 18px;
 }
 
 #equals {
@@ -59,10 +74,6 @@
   grid-column: 3/5;
 }
 
-.button:hover {
-  background-color: #cccccc;
-}
-
-.number:hover {
-  background-color: #cccccc;
+.button:hover, .number:hover, .operator:hover, #clear:hover, #delete:hover {
+  background-color: #B5B5B5;
 }
