@@ -15,9 +15,7 @@ let calculation = [];
 
 numbers.forEach((number) => {
   number.addEventListener('click', () => {
-    if(result.textContent.length === 11) { /*Limits the size of the users input*/
-      return;
-    } else if(result.textContent === "0") {
+    if(result.textContent === "0") {
       result.textContent = number.innerHTML;
     } else {
       result.textContent += number.innerHTML;
@@ -26,7 +24,7 @@ numbers.forEach((number) => {
 });
 
 decimal.addEventListener('click', () => {
-  if(result.textContent.includes(".") || result.textContent.length === 11) { /*Limits the size of the users input, and prevents multiple decimals*/
+  if(result.textContent.includes(".")) { /*prevents multiple decimals*/
     return;
   } else {
     result.textContent += decimal.innerHTML;
