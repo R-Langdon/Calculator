@@ -1,30 +1,39 @@
 const result = document.querySelector('#result');
 const calc = document.querySelector('#calculation');
 const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
 const decimal = document.querySelector('#decimal');
 const del = document.querySelector('#delete');
-const add = document.querySelector('#add');
-const subtract = document.querySelector('#subtract');
-const multiply = document.querySelector('#multiply');
-const divide = document.querySelector('#divide');
 const equals = document.querySelector('#equals');
 const clear = document.querySelector('#clear');
 const plusMinus = document.querySelector('#plusMinus');
 
 let calculation = [];
+let equalsPressed = false;
 
 numbers.forEach((number) => {
   number.addEventListener('click', () => {
-    if(result.textContent === "0") {
+    if(result.textContent === "0" || equalsPressed === true) {
       result.textContent = number.innerHTML;
+      equalsPressed = false;
     } else {
       result.textContent += number.innerHTML;
     }
   });
 });
 
+operators.forEach((operator) => {
+  operator.addEventListener('click', () => {
+    calculation.push(result.textContent);
+    calculation.push(operator.innerHTML);
+
+    result.textContent = "0";
+    calc.textContent = calculation.join(" ");
+  });
+});
+
 decimal.addEventListener('click', () => {
-  if(result.textContent.includes(".")) { /*prevents multiple decimals*/
+  if(result.textContent.includes(".") || equalsPressed === true) { /*prevents multiple decimals, and adding decimal to result*/
     return;
   } else {
     result.textContent += decimal.innerHTML;
@@ -46,46 +55,15 @@ clear.addEventListener('click', () => {
   calculation = [];
   calc.textContent = "";
   result.textContent = "0";
-})
+});
 
 plusMinus.addEventListener('click', () => {
   result.textContent = result.textContent * -1;
-})
-
-add.addEventListener('click', () => {
-  calculation.push(result.textContent);
-  calculation.push("+");
-
-  result.textContent = "0";
-  calc.textContent = calculation.join(" ");
 });
-
-subtract.addEventListener('click', () => {
-  calculation.push(result.textContent);
-  calculation.push("-");
-
-  result.textContent = "0";
-  calc.textContent = calculation.join(" ");
-});
-
-multiply.addEventListener('click', () => {
-  calculation.push(result.textContent);
-  calculation.push("x");
-
-  result.textContent = "0";
-  calc.textContent = calculation.join(" ");
-})
-
-divide.addEventListener('click', () => {
-  calculation.push(result.textContent);
-  calculation.push("÷");
-
-  result.textContent = "0";
-  calc.textContent = calculation.join(" ");
-})
 
 equals.addEventListener('click', () => {
-  if(calculation.length === 0) {
+  equalsPressed = true;
+  if(calculation.length === 0) { /*Prevents equals click before calculation*/
     return;
   } else{
     calculation.push(result.textContent);
@@ -104,8 +82,8 @@ equals.addEventListener('click', () => {
       if(calculation[i] === "x" || calculation[i] === "÷") {
         calculation.splice(i-1, 3, (operate(calculation[i-1], calculation[i+1], calculation[i])));
         i -= 1;
-      }
-    }
+      };
+    };
 
     console.log(calculation);
 
@@ -114,8 +92,8 @@ equals.addEventListener('click', () => {
       if(calculation[i] === "+" || calculation[i] === "-") {
         calculation.splice(i-1, 3, (operate(calculation[i-1], calculation[i+1], calculation[i])));
         i -= 1;
-      }
-    }
+      };
+    };
 
     console.log(calculation);
 
@@ -123,7 +101,7 @@ equals.addEventListener('click', () => {
 
     /*Reset calculation array*/
     calculation = [];
-  }
+  };
 
 });
 
@@ -131,8 +109,8 @@ equals.addEventListener('click', () => {
 function convertToNumbers(array) {
   for(let i = 0; i < array.length; i += 2) {
     array[i] = Number(array[i]);
-  }
-}
+  };
+};
 
 function operate(a, b, operator) {
   switch(operator) {
@@ -148,5 +126,5 @@ function operate(a, b, operator) {
     case "-":
       return a - b;
       break;
-  }
-}
+  };
+};
